@@ -2,6 +2,52 @@ import React, { Component } from 'react';
 import Header from './Header';
 import GHImage from './GHImage';
 
+import css, {insertRule} from 'next/css';
+
+const style = {
+  root: css({
+    display: 'flex',
+    flexFlow: 'column nowrap',
+    height: '100%',
+  }),
+
+  content: css({
+    flex: '1 0 0 auto',
+    display: 'table-row',
+    overflowX: 'overflow',
+    alignItems: 'baseline',
+    paddingLeft: '1.5rem',
+    paddingRight: '1.5rem',
+  }),
+
+  pane: css({
+    display: 'table-cell',
+    height: '100%',
+    width: 'auto',
+    paddingRight: '1.5rem',
+    verticalAlign: 'top',
+  }),
+
+  paneImageContainer: css({
+    backgroundColor: '#eee',
+    marginBottom: '1.5rem',
+  }),
+
+  paneImage: css({
+    display: 'block',
+    width: 'auto',
+    height: 'calc(100vh - 9rem)',
+    transition: '.3s ease opacity',
+    '@media (orientation: portrait)': {
+      height: 'calc(95vh - 9rem)',
+    },
+  }),
+
+  paneImageLoading: css({
+    opacity: 0,
+  }),
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +99,10 @@ class App extends Component {
   renderPreface() {
     if(this.props.preface !== undefined) {
       return (
-        <div dangerouslySetInnerHTML={this.populatePreface()} className="pane pane--text" />
+        <div
+          dangerouslySetInnerHTML={this.populatePreface()}
+          style={{minWidth: '75vw', maxWidth: '30em' }}
+          className={style.pane} />
       )
     }
   }
@@ -68,19 +117,19 @@ class App extends Component {
 
   render() {
     return (
-      <div className="site-root">
+      <div className={style.root}>
         <Header />
-        <main className="site-content">
+        <main className={style.content}>
           { this.renderPreface() }
           {this.props.images.map((img, i) =>
             <GHImage key={i}
-            onClick={this.handleClick.bind(this, i)}
-            scrollIntoView={this.state.activeImage === i ? true : false}
-            name={img.fileName}
-            speed={img.shutterSpeed}
-            iso={img.iso}
-            focalLength={img.focalLength}
-            fStop={img.fStop} />
+              onClick={this.handleClick.bind(this, i)}
+              scrollIntoView={this.state.activeImage === i ? true : false}
+              name={img.fileName}
+              speed={img.shutterSpeed}
+              iso={img.iso}
+              focalLength={img.focalLength}
+              fStop={img.fStop} />
           )}
         </main>
       </div>
@@ -93,3 +142,4 @@ App.defaultProps = {
 }
 
 export default App;
+export { style }

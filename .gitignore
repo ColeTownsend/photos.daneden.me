@@ -15,3 +15,4 @@ images
 
 # ignore generated data
 manifest.js
+.next

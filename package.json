@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "ncp": "^2.0.0",
+    "next": "^1.1.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-imgix": "^5.0.0"
@@ -18,7 +19,8 @@
     "prebuild": "node ./src/runtime/exif.js",
     "build": "react-scripts build",
     "postbuild": "node ./src/runtime/postBuild.js",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "next"
   },
   "eslintConfig": {
     "extends": "./node_modules/react-scripts/config/eslint.js"

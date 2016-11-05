@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Imgix from 'react-imgix';
 import { hScrollCenterElementInParent } from './Utils';
+import { style } from './App';
 
 class GHImage extends Component {
   constructor(props) {
@@ -54,8 +55,8 @@ class GHImage extends Component {
     }
 
     return (
-      <div id={imageName} className="pane pane--image">
-        <div className="pane__image">
+      <div id={imageName} className={style.pane} >
+        <div className={style.paneImageContainer}>
           <a onClick={this.handleClick.bind(this)} href={'#' + imageName}>
             <Imgix
               aggressiveLoad={true}
@@ -63,7 +64,7 @@ class GHImage extends Component {
               fit={"max"}
               src={url}
               imgProps={{ onLoad: this.onImageLoad }}
-              className={this.state.imageLoaded === true ? 'is-loaded' : 'is-not-loaded'} />
+              className={this.state.imageLoaded ? style.paneImage : `${style.paneImageLoading} ${style.paneImage}`} />
           </a>
         </div>
         <p className="u-mb0">
